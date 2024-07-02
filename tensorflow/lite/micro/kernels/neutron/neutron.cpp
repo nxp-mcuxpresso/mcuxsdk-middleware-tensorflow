@@ -87,8 +87,8 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
     }
   }
 
-  TfLiteTensor* microcode = micro_context->AllocateTempInputTensor(node, node->inputs->size - 2);
-  TfLiteTensor* weights = micro_context->AllocateTempInputTensor(node, node->inputs->size - 1);
+  TfLiteTensor* microcode = micro_context->AllocateTempInputTensor(node, node->inputs->size - 3);
+  TfLiteTensor* weights = micro_context->AllocateTempInputTensor(node, node->inputs->size - 2);
 
   NeutronError error = ENONE;
   neutron->model_config = {
@@ -122,7 +122,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   neutron->data_config.inputs = reinterpret_cast<const void**>(context->GetScratchBuffer(context, neutron->inputs_index));
   neutron->data_config.outputs = reinterpret_cast<void**>(context->GetScratchBuffer(context, neutron->outputs_index));
 
-  for (int i = 0; i < node->inputs->size - 2; i++) {
+  for (int i = 0; i < node->inputs->size - 3; i++) {
     TfLiteEvalTensor* input = context->GetEvalTensor(context, node->inputs->data[i]);
     neutron->data_config.inputs[i] = input->data.data;
   }
