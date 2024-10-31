@@ -1,0 +1,3 @@
+This product includes NXP eIQ Neutron NPU driver and firmware for devices with
+eIQ Neutron NPU (MCX-N9xx, MCX-N5xx and RT700), which is available under a proprietary
+license (see ../../../LA_OPT_NXP_Software_License.txt) in third_party/neutron.
