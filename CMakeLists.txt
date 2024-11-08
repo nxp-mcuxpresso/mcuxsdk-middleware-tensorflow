@@ -1,24 +1,6 @@
 
 if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
   mcux_add_source(
-    SOURCES tensorflow/lite/micro/debug_log.cpp
-    )
-  mcux_add_source(
-    SOURCES	lib/cm33/armgcc/build.sh
-    CORES cm33 cm33f
-    TOOLCHAINS armgcc mcux
-    )
-  mcux_add_source(
-    SOURCES	lib/cm4/armgcc/build.sh
-    CORES cm4 cm4f
-    TOOLCHAINS armgcc mcux
-    )
-  mcux_add_source(
-    SOURCES	lib/cm7/armgcc/build.sh
-    CORES cm7 cm7f
-    TOOLCHAINS armgcc mcux
-    )
-  mcux_add_source(
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
     SOURCES tensorflow/compiler/mlir/lite/kernels/internal/*.h
     tensorflow/compiler/mlir/lite/schema/*.h
@@ -73,8 +55,14 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
     CX "-fshort-wchar"
     )
   mcux_add_iar_configuration(
-    CC "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675"
-    CX "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675"
+    CC "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675,Pe830"
+    CX "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675,Pe830"
+    )
+endif()
+
+if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.debug_log)
+  mcux_add_source(
+    SOURCES tensorflow/lite/micro/debug_log.cpp
     )
 endif()
 
@@ -107,7 +95,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/quantize_common.cpp
     tensorflow/lite/micro/kernels/dequantize.cpp
     tensorflow/lite/micro/kernels/zeros_like.cpp
-    tensorflow/lite/micro/kernels/sub.cpp
     tensorflow/lite/micro/kernels/batch_matmul.cpp
     tensorflow/lite/micro/kernels/depth_to_space.cpp
     tensorflow/lite/micro/kernels/concatenation.cpp
@@ -124,9 +111,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/split.cpp
     tensorflow/lite/micro/kernels/ceil.cpp
     tensorflow/lite/micro/kernels/mul_common.cpp
-    tensorflow/lite/micro/kernels/logistic.cpp
     tensorflow/lite/micro/kernels/select.cpp
-    tensorflow/lite/micro/kernels/reduce.cpp
     tensorflow/lite/micro/kernels/log_softmax.cpp
     tensorflow/lite/micro/kernels/maximum_minimum.cpp
     tensorflow/lite/micro/kernels/add_n.cpp
@@ -144,7 +129,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/pooling_common.cpp
     tensorflow/lite/micro/kernels/fill.cpp
     tensorflow/lite/micro/kernels/conv_common.cpp
-    tensorflow/lite/micro/kernels/strided_slice.cpp
     tensorflow/lite/micro/kernels/l2_pool_2d.cpp
     tensorflow/lite/micro/kernels/space_to_depth.cpp
     tensorflow/lite/micro/kernels/elu.cpp
@@ -155,12 +139,10 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/gather.cpp
     tensorflow/lite/micro/kernels/tanh.cpp
     tensorflow/lite/micro/kernels/softmax_common.cpp
-    tensorflow/lite/micro/kernels/quantize.cpp
     tensorflow/lite/micro/kernels/call_once.cpp
     tensorflow/lite/micro/kernels/hard_swish.cpp
     tensorflow/lite/micro/kernels/comparisons.cpp
     tensorflow/lite/micro/kernels/svdf_common.cpp
-    tensorflow/lite/micro/kernels/lstm_eval.cpp
     tensorflow/lite/micro/kernels/hard_swish_common.cpp
     tensorflow/lite/micro/kernels/var_handle.cpp
     tensorflow/lite/micro/kernels/circular_buffer.cpp
@@ -173,24 +155,20 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/kernel_runner.cpp
     tensorflow/lite/micro/kernels/add_common.cpp
     tensorflow/lite/micro/kernels/mirror_pad.cpp
-    tensorflow/lite/micro/kernels/reshape.cpp
     tensorflow/lite/micro/kernels/reduce_common.cpp
     tensorflow/lite/micro/kernels/prelu_common.cpp
     tensorflow/lite/micro/kernels/lstm_eval_common.cpp
     tensorflow/lite/micro/kernels/floor.cpp
     tensorflow/lite/micro/kernels/cumsum.cpp
     tensorflow/lite/micro/kernels/leaky_relu_common.cpp
-    tensorflow/lite/micro/kernels/leaky_relu.cpp
     tensorflow/lite/micro/kernels/div.cpp
     tensorflow/lite/micro/kernels/activations_common.cpp
     tensorflow/lite/micro/kernels/sub_common.cpp
     tensorflow/lite/micro/kernels/exp.cpp
     tensorflow/lite/micro/kernels/neg.cpp
-    tensorflow/lite/micro/kernels/transpose_conv.cpp
     tensorflow/lite/micro/kernels/cast.cpp
     tensorflow/lite/micro/kernels/resize_bilinear.cpp
     tensorflow/lite/micro/kernels/l2norm.cpp
-    tensorflow/lite/micro/kernels/pad.cpp
     tensorflow/lite/micro/micro_resource_variable.cpp
     tensorflow/lite/micro/mock_micro_graph.cpp
     tensorflow/lite/micro/micro_profiler.cpp
@@ -265,6 +243,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     signal/src/window.cpp
     )
   mcux_add_mdk_configuration(
+    CC "-std=c99"
     CX "-std=c++17"
     LD "--library_type=standardlib"
     )
@@ -272,6 +251,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     CC "-std=c99"
     CX "-std=c++17"
     )
+  #mcux_add_iar_configuration(CC "--dlib_config full")
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.ethosu)
@@ -294,6 +274,16 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.refenerce)
     tensorflow/lite/micro/kernels/softmax.cpp
     tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.cpp
     tensorflow/lite/micro/kernels/svdf.cpp
+    tensorflow/lite/micro/kernels/sub.cpp
+    tensorflow/lite/micro/kernels/logistic.cpp
+    tensorflow/lite/micro/kernels/reduce.cpp
+    tensorflow/lite/micro/kernels/strided_slice.cpp
+    tensorflow/lite/micro/kernels/quantize.cpp
+    tensorflow/lite/micro/kernels/lstm_eval.cpp
+    tensorflow/lite/micro/kernels/reshape.cpp
+    tensorflow/lite/micro/kernels/leaky_relu.cpp
+    tensorflow/lite/micro/kernels/transpose_conv.cpp
+    tensorflow/lite/micro/kernels/pad.cpp
     )
 endif()
 
@@ -313,6 +303,16 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     tensorflow/lite/micro/kernels/cmsis_nn/softmax.cpp
     tensorflow/lite/micro/kernels/cmsis_nn/unidirectional_sequence_lstm.cpp
     tensorflow/lite/micro/kernels/cmsis_nn/svdf.cpp
+    tensorflow/lite/micro/kernels/sub.cpp
+    tensorflow/lite/micro/kernels/logistic.cpp
+    tensorflow/lite/micro/kernels/reduce.cpp
+    tensorflow/lite/micro/kernels/strided_slice.cpp
+    tensorflow/lite/micro/kernels/quantize.cpp
+    tensorflow/lite/micro/kernels/lstm_eval.cpp
+    tensorflow/lite/micro/kernels/reshape.cpp
+    tensorflow/lite/micro/kernels/leaky_relu.cpp
+    tensorflow/lite/micro/kernels/transpose_conv.cpp
+    tensorflow/lite/micro/kernels/pad.cpp
     )
   mcux_add_source(
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
@@ -460,6 +460,14 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.xtensa)
     tensorflow/lite/micro/kernels/xtensa/pad.cpp
     tensorflow/lite/micro/kernels/xtensa/lstm_eval_hifi.cpp
     )
+  mcux_add_macro(
+    CC "-DXTENSA"
+    CX "-DXTENSA"
+    )
+  mcux_add_xtensa_configuration(
+    CX "-stdlib=libc++ \
+    -std=c++17"
+    )
 endif()
 
 if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.neutron)
@@ -492,9 +500,7 @@ if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.neutron)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.library)
-  mcux_project_remove_source(
-    SOURCES tensorflow/lite/micro/debug_log.cpp
-    )
+  mcux_add_iar_configuration(CC "--dlib_config full")
   mcux_add_source(
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
     SOURCES third_party/kissfft/tools/*.c

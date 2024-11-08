@@ -40,7 +40,7 @@
  * @{
  */
 
-#if !defined(__ARMCC_VERSION)
+#if !defined(__ARMCC_VERSION) && !defined(__ICCARM__)
 __attribute__((optimize("no-unroll-loops")))
 #endif
 static void
