@@ -461,13 +461,15 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.xtensa)
     tensorflow/lite/micro/kernels/xtensa/lstm_eval_hifi.cpp
     )
   mcux_add_macro(
-    CC "-DXTENSA"
-    CX "-DXTENSA"
+    CC "-DXTENSA -DNNLIB_V2 -DHIFI4"
+    CX "-DXTENSA -DNNLIB_V2 -DHIFI4"
     )
   mcux_add_xtensa_configuration(
+    CC "-std=c99"
     CX "-stdlib=libc++ \
     -std=c++17"
     )
+
 endif()
 
 if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.neutron)
@@ -556,5 +558,17 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.binary)
     LIBS lib/cm33/armgcc/libtflm.a
     TOOLCHAINS armgcc mcux
     CORES cm33 cm33f
+    )
+  mcux_add_library(
+    LIBS lib/hifi1/xcc/rt798s/libtflm.a
+    TOOLCHAINS xcc xtensa
+    CORE_IDS hifi1
+    DEVICE_IDS MIMXRT798S
+    )
+  mcux_add_library(
+    LIBS lib/hifi4/xcc/rt798s/libtflm.a
+    TOOLCHAINS xcc xtensa
+    CORE_IDS hifi4
+    DEVICE_IDS MIMXRT798S
     )
 endif()
