@@ -571,4 +571,28 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.binary)
     CORE_IDS hifi4
     DEVICE_IDS MIMXRT798S
     )
+  mcux_add_library(
+    LIBS lib/hifi4/xcc/rt685s/libtflm.a
+    TOOLCHAINS xcc xtensa
+    CORE_IDS hifi4
+    DEVICE_IDS MIMXRT685S
+    )
+  mcux_add_library(
+    LIBS lib/fusionf1/xcc/rt595s/libtflm.a
+    TOOLCHAINS xcc xtensa
+    CORE_IDS fusionf1
+    DEVICE_IDS MIMXRT595S
+    )
+
+if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.third_party.fft2d)
+  mcux_add_source(
+    BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
+    SOURCES third_party/fft2d/*.c
+    third_party/fft2d/*.h
+    )
+  mcux_add_include(
+    INCLUDES third_party/fft2d/
+    )
+endif()
+
 endif()

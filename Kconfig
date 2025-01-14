@@ -31,4 +31,6 @@ menu "Tensorflow Micro"
             default y
             depends on !MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.library
     endif
+    config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.third_party.fft2d
+        bool "Component middleware.eiq.tensorflow_lite_micro.third_party.fft2d"
 endmenu
