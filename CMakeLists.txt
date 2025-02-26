@@ -58,6 +58,10 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
     CC "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675,Pe830"
     CX "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675,Pe830"
     )
+  mcux_remove_configuration(
+    CC "-fno-builtin"
+    CX "-fno-builtin"
+    )
 endif()
 
 if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.debug_log)
@@ -241,6 +245,8 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     signal/src/square_root_32.cpp
     signal/src/square_root_64.cpp
     signal/src/window.cpp
+    third_party/kissfft/*.c
+    third_party/kissfft/tools/*.c
     )
   mcux_add_mdk_configuration(
     CC "-std=c99"
@@ -248,8 +254,8 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     LD "--library_type=standardlib"
     )
   mcux_add_armgcc_configuration(
-    CC "-std=c99"
-    CX "-std=c++17"
+    CC "-std=c17"
+    CX "-std=gnu++17"
     )
   #mcux_add_iar_configuration(CC "--dlib_config full")
 endif()
