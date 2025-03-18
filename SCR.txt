@@ -1,0 +1,92 @@
+NXP Software Content Register
+
+Package: eiq_tensorflow_tflite-micro
+Version: 2024-08-07 (commit d3475aa)
+Outgoing License: Apache-2.0
+License File: LICENSE
+Type of Content: source code
+Description and comments: Software library for running machine learning models on embedded devices
+Release Location: https://github.com/nxp-mcuxpresso/mcuxsdk-middleware-tensorflow
+URL: https://github.com/tensorflow/tflite-micro
+Origin: 
+      See https://github.com/tensorflow/tflite-micro/blob/main/AUTHORS Apache-2.0
+
+NXP Software Content Register
+
+Package: eiq_FFT2D
+Version: NA
+Outgoing License: Public Domain
+License File: tensorflow-lite/third_party/fft2d/LICENSE
+Type of Content: source code
+Description and comments: FFT package in C
+Release Location: https://github.com/nxp-mcuxpresso/mcuxsdk-middleware-tensorflow
+URL: http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html
+Origin: 
+      Takuya Ooura
+
+NXP Software Content Register
+
+Package: eiq_FlatBuffers
+Version: 2.0.6 (commit a66de58)
+Outgoing License: Apache-2.0
+License File: tensorflow-lite/third_party/flatbuffers/LICENSE.txt
+Type of Content: source code
+Description and comments: Cross platform serialization library
+Release Location: https://github.com/nxp-mcuxpresso/mcuxsdk-middleware-tensorflow
+URL: https://github.com/google/flatbuffers
+Origin: 
+      https://google.github.io/flatbuffers
+
+NXP Software Content Register
+
+Package: eiq_gemmlowp
+Version: NA (commit 719139c)
+Outgoing License: Apache-2.0
+License File: tensorflow-lite/third_party/gemmlowp/LICENSE
+Type of Content: source code
+Description and comments: A small self-contained low-precision GEMM library
+Release Location: https://github.com/nxp-mcuxpresso/mcuxsdk-middleware-tensorflow
+URL: https://github.com/google/gemmlowp
+Origin: 
+      See https://github.com/google/gemmlowp/blob/master/AUTHORS
+
+NXP Software Content Register
+
+Package: eiq_KissFFT
+Version: 1.3.0
+Outgoing License: BSD-3-Clause
+License File: tensorflow-lite/third_party/kissfft/COPYING
+Type of Content: source code
+Description and comments: A mixed-radix Fast Fourier Transform library
+Release Location: https://github.com/nxp-mcuxpresso/mcuxsdk-middleware-tensorflow
+URL: https://github.com/mborgerding/kissfft
+Origin: 
+      Mark Borgerding
+
+NXP Software Content Register
+
+Package: eiq_ruy
+Version: NA (commit d371283)
+Outgoing License: Apache-2.0
+License File: tensorflow-lite/third_party/ruy/LICENSE
+Type of Content: source code
+Description and comments: The ruy matrix multiplication library
+Release Location: https://github.com/nxp-mcuxpresso/mcuxsdk-middleware-tensorflow
+URL: https://github.com/google/ruy
+Origin: 
+      Google, Inc.
+
+NXP Software Content Register
+
+Package: eiq_tensorflow_lite_micro_cmsis_nn
+Version: 23.08 (commit dc64e48)
+Outgoing License: Apache-2.0
+License File: tensorflow-lite/third_party/cmsis_nn/LICENSE.txt
+Type of Content: source code
+Description and comments: A neural network kernels library for Cortex-M cores from ARM
+Release Location: https://github.com/nxp-mcuxpresso/mcuxsdk-middleware-tensorflow
+URL: https://github.com/ARM-software/CMSIS-NN
+Origin: 
+      ARM
+
+NXP Software Content Register
