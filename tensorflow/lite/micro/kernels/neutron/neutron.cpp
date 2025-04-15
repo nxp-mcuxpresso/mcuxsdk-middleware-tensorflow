@@ -116,7 +116,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   micro_context->DeallocateTempTfLiteTensor(weights);
 
 #ifdef EXTERNAL_MEM
-  n_config = (NeutronConfig *)malloc(sizeof(NeutronConfig));
+  n_config = static_cast<NeutronConfig*>(context->AllocatePersistentBuffer(context, sizeof(NeutronConfig)));
   n_config->copy = copy;
   n_config->wait = wait;
   error = neutronSetConfig(n_config);
