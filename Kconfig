@@ -13,6 +13,9 @@ menu "Tensorflow Micro"
         bool "Enable cmsis_nn"
         select MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro
         depends on !MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.binary
+    config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.ethosu
+        bool "Enable ethosu"
+        select MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro
     config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.xtensa
         bool "Enable xtensa for DSP"
         select MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro

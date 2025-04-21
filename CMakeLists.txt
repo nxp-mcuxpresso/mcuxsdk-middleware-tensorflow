@@ -75,7 +75,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
     SOURCES tensorflow/lite/kernels/kernel_util.cpp
     tensorflow/compiler/mlir/lite/schema/schema_utils.cpp
-    tensorflow/lite/micro/kernels/ethosu.cpp
     tensorflow/lite/kernels/internal/portable_tensor_utils.cpp
     tensorflow/lite/kernels/internal/quantization_util.cpp
     tensorflow/lite/kernels/internal/common.cpp
@@ -257,7 +256,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     CC "-std=c17"
     CX "-std=gnu++17"
     )
-  #mcux_add_iar_configuration(CC "--dlib_config full")
+  mcux_add_iar_configuration(CC "--dlib_config full")
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.ethosu)
@@ -265,6 +264,11 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.ethosu)
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
     SOURCES 
     tensorflow/lite/micro/kernels/ethos_u/ethosu.cpp
+    )
+else()
+  mcux_project_remove_source(
+    BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
+    SOURCES tensorflow/lite/micro/kernels/ethosu.cpp
     )
 endif()
 
