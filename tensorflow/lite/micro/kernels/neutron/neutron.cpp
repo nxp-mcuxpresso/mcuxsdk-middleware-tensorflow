@@ -154,7 +154,9 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   }
 
 #ifdef EXTERNAL_MEM
-  neutron->data_config.scratchWeights = (void *)SCRATCH_WEIGHTS_SRAM_ADDR;
+  static const unsigned int SCRATCH_WEIGHTS_SRAM_SIZE = 1200 * 1024;
+  static uint8_t scratchWeightsBuffer[SCRATCH_WEIGHTS_SRAM_SIZE] __attribute__((aligned(16))) __attribute__((section("NonCacheable.init")));
+  neutron->data_config.scratchWeights = (void *)scratchWeightsBuffer;
 #endif
 
 #ifdef NEUTRON_PROFILE
