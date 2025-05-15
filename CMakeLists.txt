@@ -1,3 +1,4 @@
+set(ETHOSU_STUB Y)
 
 if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
   mcux_add_source(
@@ -18,10 +19,14 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
     tensorflow/lite/micro/*.h
     tensorflow/lite/micro/kernels/*.h
     tensorflow/lite/micro/kernels/xtensa/*.h
+    tensorflow/lite/micro/compression/*.h
     tensorflow/lite/micro/memory_planner/*.h
     tensorflow/lite/micro/arena_allocator/*.h
     tensorflow/lite/micro/tflite_bridge/*.h
     tensorflow/lite/c/*.h
+    tensorflow/compiler/mlir/lite/core/api/*.h
+    tensorflow/compiler/mlir/lite/core/c/*.h
+    tensorflow/lite/micro/kernels/xtensa/hifimini/*.h
     signal/micro/kernels/*.h
     signal/src/*.h
     signal/src/kiss_fft_wrappers/*.h
@@ -40,6 +45,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
     third_party/cmsis_nn/Include/Internal/*.h
     third_party/fft2d/*.h
     third_party/flatbuffers/include/flatbuffers/*.h
+    third_party/flatbuffers/include/flatbuffers/pch/*.h
     third_party/gemmlowp/fixedpoint/*.h
     third_party/gemmlowp/internal/detect_platform.h
     third_party/ruy/ruy/profiler/instrumentation.h
@@ -47,15 +53,15 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
     third_party/kissfft/tools/*.h
     )
   mcux_add_macro(
-    CC "-DTF_LITE_STATIC_MEMORY"
-    CX "-DTF_LITE_STATIC_MEMORY"
+    CC "-DTF_LITE_STATIC_MEMORY -DKERNELS_OPTIMIZED_FOR_SPEED"
+    CX "-DTF_LITE_STATIC_MEMORY -DKERNELS_OPTIMIZED_FOR_SPEED"
     )
   mcux_remove_mdk_configuration(
     CC "-fshort-wchar"
     CX "-fshort-wchar"
     )
   mcux_add_iar_configuration(
-    CC "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675,Pe830"
+    CC "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa183,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675,Pe830,Pe1097"
     CX "--diag_suppress=Pa082,Pa050,Pe188,Pe069,Go003,Pa050,Pa082,Pa084,Pa093,Pe069,Pe111,Pe161,Pe174,Pe177,Pe186,Pe188,Pe550,Pe611,Pe997,Pe1444,Pe1675,Pe830"
     )
   mcux_remove_configuration(
@@ -84,7 +90,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/kernels/internal/tensor_ctypes.cpp
     tensorflow/lite/core/api/tensor_utils.cpp
     tensorflow/lite/core/api/flatbuffer_conversions.cpp
-    tensorflow/lite/core/api/error_reporter.cpp
     tensorflow/lite/core/c/common.cpp
     tensorflow/lite/micro/micro_context.cpp
     tensorflow/lite/micro/kernels/if.cpp
@@ -98,7 +103,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/quantize_common.cpp
     tensorflow/lite/micro/kernels/dequantize.cpp
     tensorflow/lite/micro/kernels/zeros_like.cpp
-    tensorflow/lite/micro/kernels/batch_matmul.cpp
     tensorflow/lite/micro/kernels/depth_to_space.cpp
     tensorflow/lite/micro/kernels/concatenation.cpp
     tensorflow/lite/micro/kernels/slice.cpp
@@ -110,13 +114,11 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/micro_tensor_utils.cpp
     tensorflow/lite/micro/kernels/squared_difference.cpp
     tensorflow/lite/micro/kernels/split_v.cpp
-    tensorflow/lite/micro/kernels/transpose.cpp
     tensorflow/lite/micro/kernels/split.cpp
     tensorflow/lite/micro/kernels/ceil.cpp
     tensorflow/lite/micro/kernels/mul_common.cpp
     tensorflow/lite/micro/kernels/select.cpp
     tensorflow/lite/micro/kernels/log_softmax.cpp
-    tensorflow/lite/micro/kernels/maximum_minimum.cpp
     tensorflow/lite/micro/kernels/add_n.cpp
     tensorflow/lite/micro/kernels/arg_min_max.cpp
     tensorflow/lite/micro/kernels/activations.cpp
@@ -200,6 +202,14 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/arena_allocator/recording_single_arena_buffer_allocator.cpp
     tensorflow/lite/micro/tflite_bridge/flatbuffer_conversions_bridge.cpp
     tensorflow/lite/micro/tflite_bridge/micro_error_reporter.cpp
+    tensorflow/compiler/mlir/lite/core/api/error_reporter.cpp
+    tensorflow/lite/kernels/internal/runtime_shape.cpp
+    tensorflow/lite/micro/kernels/batch_matmul_common.cpp
+    tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.cpp
+    tensorflow/lite/micro/kernels/decompress.cpp
+    tensorflow/lite/micro/kernels/decompress_common.cpp
+    tensorflow/lite/micro/kernels/pad_common.cpp
+    tensorflow/lite/micro/kernels/transpose_common.cpp
     )
   mcux_add_source(
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
@@ -247,29 +257,33 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     third_party/kissfft/*.c
     third_party/kissfft/tools/*.c
     )
+
+  if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.ethosu)
+    mcux_add_source(
+      BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
+      SOURCES 
+      tensorflow/lite/micro/kernels/ethos_u/ethosu.cpp
+      )
+    unset(ETHOSU_STUB)
+  endif()
+  
+  if(ETHOSU_STUB)
+    mcux_add_source(
+      BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
+      SOURCES tensorflow/lite/micro/kernels/ethosu.cpp
+      )
+  endif()
+  
   mcux_add_mdk_configuration(
     CC "-std=c99"
     CX "-std=c++17"
     LD "--library_type=standardlib"
     )
   mcux_add_armgcc_configuration(
-    CC "-std=c17"
+    CC "-std=c17 -funsigned-char"
     CX "-std=gnu++17"
     )
   mcux_add_iar_configuration(CC "--dlib_config full")
-endif()
-
-if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.ethosu)
-  mcux_add_source(
-    BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
-    SOURCES 
-    tensorflow/lite/micro/kernels/ethos_u/ethosu.cpp
-    )
-else()
-  mcux_project_remove_source(
-    BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
-    SOURCES tensorflow/lite/micro/kernels/ethosu.cpp
-    )
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.refenerce)
@@ -285,6 +299,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.refenerce)
     tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.cpp
     tensorflow/lite/micro/kernels/svdf.cpp
     tensorflow/lite/micro/kernels/sub.cpp
+    tensorflow/lite/micro/kernels/batch_matmul.cpp
     tensorflow/lite/micro/kernels/logistic.cpp
     tensorflow/lite/micro/kernels/reduce.cpp
     tensorflow/lite/micro/kernels/strided_slice.cpp
@@ -293,7 +308,9 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.refenerce)
     tensorflow/lite/micro/kernels/reshape.cpp
     tensorflow/lite/micro/kernels/leaky_relu.cpp
     tensorflow/lite/micro/kernels/transpose_conv.cpp
+    tensorflow/lite/micro/kernels/transpose.cpp
     tensorflow/lite/micro/kernels/pad.cpp
+    tensorflow/lite/micro/kernels/maximum_minimum.cpp
     )
 endif()
 
@@ -313,6 +330,11 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     tensorflow/lite/micro/kernels/cmsis_nn/softmax.cpp
     tensorflow/lite/micro/kernels/cmsis_nn/unidirectional_sequence_lstm.cpp
     tensorflow/lite/micro/kernels/cmsis_nn/svdf.cpp
+    tensorflow/lite/micro/kernels/cmsis_nn/batch_matmul.cpp
+    tensorflow/lite/micro/kernels/cmsis_nn/maximum_minimum.cpp
+    tensorflow/lite/micro/kernels/cmsis_nn/pad.cpp
+    tensorflow/lite/micro/kernels/cmsis_nn/transpose.cpp
+    tensorflow/lite/micro/kernels/cmsis_nn/transpose_conv.cpp
     tensorflow/lite/micro/kernels/sub.cpp
     tensorflow/lite/micro/kernels/logistic.cpp
     tensorflow/lite/micro/kernels/reduce.cpp
@@ -321,8 +343,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     tensorflow/lite/micro/kernels/lstm_eval.cpp
     tensorflow/lite/micro/kernels/reshape.cpp
     tensorflow/lite/micro/kernels/leaky_relu.cpp
-    tensorflow/lite/micro/kernels/transpose_conv.cpp
-    tensorflow/lite/micro/kernels/pad.cpp
     )
   mcux_add_source(
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
@@ -335,6 +355,8 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/BasicMathFunctions/arm_elementwise_mul_s16_s8.c
     third_party/cmsis_nn/Source/BasicMathFunctions/arm_elementwise_mul_s8.c
     third_party/cmsis_nn/Source/BasicMathFunctions/arm_elementwise_mul_s16.c
+    third_party/cmsis_nn/Source/BasicMathFunctions/arm_minimum_s8.c
+    third_party/cmsis_nn/Source/BasicMathFunctions/arm_maximum_s8.c
     third_party/cmsis_nn/Source/SVDFunctions/arm_svdf_get_buffer_sizes_s8.c
     third_party/cmsis_nn/Source/SVDFunctions/arm_svdf_s8.c
     third_party/cmsis_nn/Source/SVDFunctions/arm_svdf_state_s16_s8.c
@@ -344,6 +366,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/ConcatenationFunctions/arm_concatenation_s8_y.c
     third_party/cmsis_nn/Source/ReshapeFunctions/arm_reshape_s8.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_transpose_conv_s8.c
+    third_party/cmsis_nn/Source/ConvolutionFunctions/arm_transpose_conv_wrapper_s8.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_wrapper_s4.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_row_offset_s8_s16.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s4.c
@@ -380,6 +403,10 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_depthwise_conv_get_buffer_sizes_s8.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_s8.c
     third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_fully_connected_s16.c
+    third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_fully_connected_wrapper_s8.c
+    third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_fully_connected_per_channel_s8.c
+    third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_batch_matmul_s16.c
+    third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_batch_matmul_s8.c
     third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_vector_sum_s8_s64.c
     third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_fully_connected_get_buffer_sizes_s8.c
     third_party/cmsis_nn/Source/FullyConnectedFunctions/arm_fully_connected_s4.c
@@ -390,6 +417,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/ActivationFunctions/arm_relu_q15.c
     third_party/cmsis_nn/Source/ActivationFunctions/arm_nn_activation_s16.c
     third_party/cmsis_nn/Source/ActivationFunctions/arm_relu6_s8.c
+    third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_per_ch_s8.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_lstm_step_s16.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c
@@ -414,6 +442,8 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s4.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_vec_mat_mul_result_acc_s8_s16.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s4.c
+    third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_transpose_conv_row_s8_s32.c
+    third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16_s16.c
     third_party/cmsis_nn/Source/SoftmaxFunctions/arm_softmax_u8.c
     third_party/cmsis_nn/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c
     third_party/cmsis_nn/Source/SoftmaxFunctions/arm_softmax_s8.c
@@ -425,6 +455,8 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/PoolingFunctions/arm_avgpool_get_buffer_sizes_s8.c
     third_party/cmsis_nn/Source/PoolingFunctions/arm_avgpool_get_buffer_sizes_s16.c
     third_party/cmsis_nn/Source/PoolingFunctions/arm_max_pool_s8.c
+    third_party/cmsis_nn/Source/PadFunctions/arm_pad_s8.c
+    third_party/cmsis_nn/Source/TransposeFunctions/arm_transpose_s8.c
     )
 endif()
 
@@ -469,6 +501,12 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.xtensa)
     tensorflow/lite/micro/kernels/xtensa/transpose_conv.cpp
     tensorflow/lite/micro/kernels/xtensa/pad.cpp
     tensorflow/lite/micro/kernels/xtensa/lstm_eval_hifi.cpp
+    tensorflow/lite/micro/kernels/xtensa/decompress.cpp
+    tensorflow/lite/micro/kernels/xtensa/dequantize.cpp
+    tensorflow/lite/micro/kernels/xtensa/hifimini/fully_connected.cpp
+    tensorflow/lite/micro/kernels/xtensa/hifimini/svdf.cpp
+    signal/micro/kernels/xtensa/fft_auto_scale_kernel.cpp
+    signal/micro/kernels/xtensa/filter_bank_square_root.cpp
     )
   mcux_add_macro(
     CC "-DXTENSA -DNNLIB_V2 -DHIFI4"
