@@ -26,6 +26,34 @@ limitations under the License.
 namespace tflite {
 namespace {
 
+const cmsis_nn_dims ExtendTensorToNWHC(const TfLiteEvalTensor* tensor) {
+  RuntimeShape input_shape = tflite::micro::GetTensorShape(tensor);
+  int dims = input_shape.DimensionsCount();
+  int n = 1, w = 1, h = 1, c = 1;
+
+  if (dims == 1) {
+    w = input_shape.Dims(0);
+  } else if (dims == 2) {
+    w = input_shape.Dims(0);
+    h = input_shape.Dims(1);
+  } else if (dims == 3) {
+    n = input_shape.Dims(0);
+    w = input_shape.Dims(1);
+    h = input_shape.Dims(2);
+  } else if (dims == 4) {
+    n = input_shape.Dims(0);
+    w = input_shape.Dims(1);
+    h = input_shape.Dims(2);
+    c = input_shape.Dims(3);
+  }
+
+  if (n == -1) {
+    n = 1;
+  }
+
+  return {n, w, h, c};
+}
+
 TfLiteStatus PadEvalInt8(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpData* data = static_cast<const OpData*>(node->user_data);
@@ -48,8 +76,7 @@ TfLiteStatus PadEvalInt8(TfLiteContext* context, TfLiteNode* node) {
   const int8_t* input_ptr = tflite::micro::GetTensorData<int8_t>(input);
   int8_t* output_ptr = tflite::micro::GetTensorData<int8_t>(output);
 
-  const RuntimeShape d = tflite::micro::GetTensorShape(input);
-  const cmsis_nn_dims input_size = {d.Dims(0), d.Dims(1), d.Dims(2), d.Dims(3)};
+  const cmsis_nn_dims input_size = ExtendTensorToNWHC(input);
 
   const PadParams p = data->params;
   const cmsis_nn_dims pre_pad = {p.left_padding[0], p.left_padding[1],
