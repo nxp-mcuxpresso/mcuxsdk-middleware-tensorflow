@@ -27,7 +27,7 @@ TfLiteStatus TransposeEvalInt8(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* perm_tensor =
       tflite::micro::GetEvalInput(context, node, kTransposePermTensor);
   const int size = perm_tensor->dims->data[0];
-  TF_LITE_ENSURE(context, size <= 4);
+  //TF_LITE_ENSURE(context, size <= 4);
   const TfLiteEvalTensor* input =
       tflite::micro::GetEvalInput(context, node, kTransposeInputTensor);
   TfLiteEvalTensor* output =
@@ -80,7 +80,14 @@ TfLiteStatus TransposeEval(TfLiteContext* context, TfLiteNode* node) {
                                tflite::micro::GetTensorData<float>(output));
       break;
     case kTfLiteInt8: {
-      TransposeEvalInt8(context, node);
+      if (params.perm_count <= 4) {
+          TransposeEvalInt8(context, node);
+      } else {
+          reference_ops::Transpose(params, tflite::micro::GetTensorShape(input),
+                                   tflite::micro::GetTensorData<int8_t>(input),
+                                   tflite::micro::GetTensorShape(output),
+                                   tflite::micro::GetTensorData<int8_t>(output));
+      }
     } break;
     case kTfLiteInt16:
       reference_ops::Transpose(params, tflite::micro::GetTensorShape(input),
