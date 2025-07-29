@@ -6,7 +6,7 @@ export XTENSA_CORE="rt700_hifi1_RI23_11_nlib"
 
 git clone https://github.com/tensorflow/tflite-micro.git tflite-micro
 cd tflite-micro
-git checkout bc68d362d6f3ac93ce11d8712974d05b1d6a8305
+git checkout 3200ccd18268346d0ea965720c5599a3d051e853
 git apply ../tflm.patch
 make -j8 -f tensorflow/lite/micro/tools/make/Makefile BUILD_TYPE=release_with_logs TARGET=xtensa TARGET_ARCH=hifi4 XTENSA_USE_LIBC=true OPTIMIZED_KERNEL_DIR=xtensa microlite
 cp gen/xtensa_hifi4_release_with_logs_xtensa_gcc/lib/libtensorflow-microlite.a ../libtflm.a

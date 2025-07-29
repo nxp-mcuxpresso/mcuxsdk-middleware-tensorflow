@@ -184,7 +184,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/micro_log.cpp
     tensorflow/lite/micro/micro_interpreter_context.cpp
     tensorflow/lite/micro/micro_interpreter_graph.cpp
-    tensorflow/lite/micro/system_setup.cpp
     tensorflow/lite/micro/test_helper_custom_ops.cpp
     tensorflow/lite/micro/micro_time.cpp
     tensorflow/lite/micro/test_helpers.cpp

@@ -1,6 +1,8 @@
 menu "Tensorflow Micro"
     config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro
         bool "Enable TFLM"
+    config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.refenerce
+        bool "Enable TFLM refenerce kernel"
     config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.binary
         bool "Use TFLM lib"
         select MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro
