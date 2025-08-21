@@ -44,9 +44,20 @@ typedef struct {
 } NeutronTfLiteConfig;
 
 #ifdef EXTERNAL_MEM
+#ifndef SCRATCH_WEIGHTS_SRAM_SIZE
+#define SCRATCH_WEIGHTS_SRAM_SIZE  1200*1024
+#endif
+
+static uint8_t scratchWeightsBuffer[SCRATCH_WEIGHTS_SRAM_SIZE] __attribute__((aligned(16))) __attribute__((section("NonCacheable")));
 static NeutronConfig *n_config = nullptr;
 
 void copy(void *dst, void *src, uint32_t size, uint32_t channel) {
+if (((uintptr_t)dst + size - (uintptr_t)scratchWeightsBuffer) > SCRATCH_WEIGHTS_SRAM_SIZE){
+      MicroPrintf("scratchWeightsBuffer Overflow, Requested: %x SCRATCH_WEIGHTS_SRAM_SIZE: %x\r\n",
+		      ((uintptr_t)dst + size - (uintptr_t)scratchWeightsBuffer), SCRATCH_WEIGHTS_SRAM_SIZE);
+      while(1);
+      return;
+  }
   memcpy(dst, src, size);
 }
 void wait(uint32_t channel) {
@@ -154,8 +165,6 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   }
 
 #ifdef EXTERNAL_MEM
-  static const unsigned int SCRATCH_WEIGHTS_SRAM_SIZE = 1200 * 1024;
-  static uint8_t scratchWeightsBuffer[SCRATCH_WEIGHTS_SRAM_SIZE] __attribute__((aligned(16))) __attribute__((section("NonCacheable.init")));
   neutron->data_config.scratchWeights = (void *)scratchWeightsBuffer;
 #endif
 
@@ -198,9 +207,6 @@ void Free(TfLiteContext* context, void* buffer) {
     }
   }
 
-#ifdef EXTERNAL_MEM
-  free(n_config);
-#endif
 }
 
 }  // namespace
