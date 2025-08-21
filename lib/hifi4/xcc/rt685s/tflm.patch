@@ -1,3 +1,16 @@
+diff --git a/tensorflow/lite/kernels/internal/types.h b/tensorflow/lite/kernels/internal/types.h
+index 510ffa30..cbbccc95 100644
+--- a/tensorflow/lite/kernels/internal/types.h
++++ b/tensorflow/lite/kernels/internal/types.h
+@@ -34,6 +34,8 @@ enum class FusedActivationFunctionType : uint8_t {
+ };
+ enum class PaddingType : uint8_t { kNone, kSame, kValid };
+ 
++typedef float_t   float32_t;
++
+ struct PaddingValues {
+   int16_t width;
+   int16_t height;
 diff --git a/tensorflow/lite/micro/debug_log.cc b/tensorflow/lite/micro/debug_log.cc
 index 98231968..b18ee19a 100644
 --- a/tensorflow/lite/micro/debug_log.cc
@@ -63,10 +76,10 @@ index 98231968..b18ee19a 100644
  
  #ifndef TF_LITE_STRIP_ERROR_STRINGS
 diff --git a/tensorflow/lite/micro/tools/make/targets/xtensa_makefile.inc b/tensorflow/lite/micro/tools/make/targets/xtensa_makefile.inc
-index 8a3ee7b6..fcfe2f2d 100644
+index 60b66732..daac77bd 100644
 --- a/tensorflow/lite/micro/tools/make/targets/xtensa_makefile.inc
 +++ b/tensorflow/lite/micro/tools/make/targets/xtensa_makefile.inc
-@@ -39,7 +39,6 @@ PLATFORM_FLAGS = \
+@@ -52,7 +52,6 @@ PLATFORM_FLAGS = \
    -DTF_LITE_MCU_DEBUG_LOG \
    -DTF_LITE_USE_CTIME \
    --xtensa-core=$(XTENSA_CORE) \
