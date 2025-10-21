@@ -97,11 +97,13 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
   TfLiteTensor* microcode = micro_context->AllocateTempInputTensor(node, node->inputs->size - 3);
   TfLiteTensor* weights = micro_context->AllocateTempInputTensor(node, node->inputs->size - 2);
+  TfLiteTensor* kernels = micro_context->AllocateTempInputTensor(node, node->inputs->size - 1);
 
   NeutronError error = ENONE;
   neutron->model_config = {
     .microcode = microcode->data.data,
-    .weights = weights->data.data
+    .weights = weights->data.data,
+    .kernels = kernels->data.data
   };
   
   NeutronModelHandle hdl_mem   = static_cast<NeutronModelHandle>(
@@ -125,6 +127,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
   micro_context->DeallocateTempTfLiteTensor(microcode);
   micro_context->DeallocateTempTfLiteTensor(weights);
+  micro_context->DeallocateTempTfLiteTensor(kernels);
 
 #ifdef EXTERNAL_MEM
   n_config = static_cast<NeutronConfig*>(context->AllocatePersistentBuffer(context, sizeof(NeutronConfig)));
@@ -162,6 +165,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   if (node->outputs->size > 0) {
     TfLiteEvalTensor* scratch = context->GetEvalTensor(context, node->outputs->data[node->outputs->size - 1]);
     neutron->data_config.outputs[node->outputs->size - 1] = scratch->data.data;
+    neutron->data_config.scratch = scratch->data.data;
   }
 
 #ifdef EXTERNAL_MEM

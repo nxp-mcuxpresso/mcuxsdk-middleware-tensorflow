@@ -369,6 +369,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_wrapper_s4.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_row_offset_s8_s16.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s4.c
+    third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_even_s4.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_wrapper_s8.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_wrapper_s16.c
     third_party/cmsis_nn/Source/ConvolutionFunctions/arm_convolve_get_buffer_sizes_s8.c
@@ -416,6 +417,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.cmsis_nn)
     third_party/cmsis_nn/Source/ActivationFunctions/arm_relu_q15.c
     third_party/cmsis_nn/Source/ActivationFunctions/arm_nn_activation_s16.c
     third_party/cmsis_nn/Source/ActivationFunctions/arm_relu6_s8.c
+    third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_mat_mult_nt_interleaved_t_even_s4.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_per_ch_s8.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_lstm_step_s16.c
     third_party/cmsis_nn/Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c
@@ -543,6 +545,11 @@ if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.neutron)
     TOOLCHAINS armgcc mcux mdk iar
     DEVICE_IDS MIMXRT798S
     )
+  mcux_add_library(
+    LIBS third_party/neutron/rt2660/libNeutronDriver.a
+    TOOLCHAINS armgcc mcux mdk iar
+    DEVICE_IDS MIMXRT2662xxxxx
+    )
   mcux_add_iar_configuration(
     LD "--diag_suppress Li026,Lt069"
     )
@@ -605,6 +612,11 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.binary)
     LIBS lib/cm33/armgcc/libtflm.a
     TOOLCHAINS armgcc mcux
     CORES cm33 cm33f
+    )
+  mcux_add_library(
+    LIBS lib/cm85/armgcc/libtflm.a
+    TOOLCHAINS armgcc mcux
+    CORES cm85 cm85f
     )
   mcux_add_library(
     LIBS lib/hifi1/xcc/rt798s/libtflm.a
