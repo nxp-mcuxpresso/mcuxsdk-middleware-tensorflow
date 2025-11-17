@@ -26,6 +26,7 @@ menu "Tensorflow Micro"
     config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.neutron
         bool "Enable neutron"
         select MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro
+        select MCUX_COMPONENT_middleware.eiq.neutron
     config MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.library
         bool "Build TFLM library project"
         select MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro

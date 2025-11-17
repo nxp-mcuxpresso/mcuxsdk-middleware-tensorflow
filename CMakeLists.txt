@@ -526,32 +526,6 @@ if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.neutron)
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
     SOURCES tensorflow/lite/micro/kernels/neutron/neutron.cpp
     tensorflow/lite/micro/kernels/neutron/neutron.h
-    third_party/neutron/common/include/*.h
-    third_party/neutron/driver/include/*.h
-    )
-
-  mcux_add_include(
-    INCLUDES tensorflow/lite/micro/kernels/neutron/
-    third_party/neutron/common/include
-    third_party/neutron/driver/include
-    )
-  mcux_add_library(
-    LIBS third_party/neutron/mcxn/libNeutronDriver.a third_party/neutron/mcxn/libNeutronFirmware.a
-    TOOLCHAINS armgcc mcux mdk iar
-    DEVICE_IDS MCXN947 MCXN547
-    )
-  mcux_add_library(
-    LIBS third_party/neutron/rt700/libNeutronDriver.a third_party/neutron/rt700/libNeutronFirmware.a
-    TOOLCHAINS armgcc mcux mdk iar
-    DEVICE_IDS MIMXRT798S
-    )
-  mcux_add_library(
-    LIBS third_party/neutron/rt2660/libNeutronDriver.a
-    TOOLCHAINS armgcc mcux mdk iar
-    DEVICE_IDS MIMXRT2662xxxxx
-    )
-  mcux_add_iar_configuration(
-    LD "--diag_suppress Li026,Lt069"
     )
 endif()
 
