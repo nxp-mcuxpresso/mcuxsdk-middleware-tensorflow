@@ -163,7 +163,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   }
 
   if (node->outputs->size > 0) {
-    TfLiteEvalTensor* scratch = context->GetEvalTensor(context, node->outputs->data[node->outputs->size - 1]);
+    TfLiteEvalTensor* scratch = context->GetEvalTensor(context, node->outputs->data[node->outputs->size - 3]);
     neutron->data_config.outputs[node->outputs->size - 1] = scratch->data.data;
     neutron->data_config.scratch = scratch->data.data;
   }
