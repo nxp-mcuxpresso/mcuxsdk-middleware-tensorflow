@@ -68,6 +68,11 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro)
     CC "-fno-builtin"
     CX "-fno-builtin"
     )
+  mcux_add_source(
+    BASE_PATH ${CMAKE_CURRENT_LIST_DIR}
+    SOURCES tensorflow/lite/micro/micro_time.cpp
+    tensorflow/lite/micro/micro_time.cpp
+    )
 endif()
 
 if(CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.debug_log)
@@ -185,7 +190,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/micro_interpreter_context.cpp
     tensorflow/lite/micro/micro_interpreter_graph.cpp
     tensorflow/lite/micro/test_helper_custom_ops.cpp
-    tensorflow/lite/micro/micro_time.cpp
     tensorflow/lite/micro/test_helpers.cpp
     tensorflow/lite/micro/recording_micro_allocator.cpp
     tensorflow/lite/micro/micro_interpreter.cpp
@@ -209,6 +213,13 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     tensorflow/lite/micro/kernels/decompress_common.cpp
     tensorflow/lite/micro/kernels/pad_common.cpp
     tensorflow/lite/micro/kernels/transpose_common.cpp
+    tensorflow/lite/micro/kernels/decode.cpp
+    tensorflow/lite/micro/kernels/decode_state.cpp
+    tensorflow/lite/micro/kernels/decode_state_huffman.cpp
+    tensorflow/lite/micro/kernels/decode_state_lut.cpp
+    tensorflow/lite/micro/kernels/decode_state_prune.cpp
+    tensorflow/lite/micro/kernels/dynamic_update_slice.cpp
+    tensorflow/lite/micro/kernels/reverse.cpp
     )
   mcux_add_source(
     BASE_PATH ${CMAKE_CURRENT_LIST_DIR}

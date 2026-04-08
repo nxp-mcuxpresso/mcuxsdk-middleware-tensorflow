@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 // WARNING: Users of TensorFlow Lite should not include this file directly, but
-// should instead include "third_party/tensorflow/lite/c/common.h".
+// should instead include "tensorflow/lite/c/common.h".
 // Only the TensorFlow Lite implementation itself should include this file
 // directly.
 
@@ -47,7 +47,7 @@ limitations under the License.
 // NOLINTEND(whitespace/line_length)
 // clang-format on
 
-// IWYU pragma: private, include "third_party/tensorflow/lite/c/common.h"
+// IWYU pragma: private, include "tensorflow/lite/c/common.h"
 
 #ifndef TENSORFLOW_LITE_CORE_C_COMMON_H_
 #define TENSORFLOW_LITE_CORE_C_COMMON_H_
@@ -788,6 +788,7 @@ TfLiteStatus TfLiteTensorRealloc(size_t num_bytes, TfLiteTensor* tensor);
 /// If all dimensions are known, this is the same as `t->dims`.
 /// (`dims_signature` is NULL or empty if all dimensions are known.)
 const TfLiteIntArray* TfLiteTensorGetDimsSignature(const TfLiteTensor* t);
+
 #endif  // TF_LITE_STATIC_MEMORY
 
 /// WARNING: This is an experimental interface that is subject to change.
@@ -1160,6 +1161,11 @@ typedef struct TfLiteRegistration {
   /// NOTE: if the data is already in the desired format, simply implement this
   /// function to return `nullptr` and implement the free function to be a
   /// no-op.
+  ///
+  /// NOTE: For a Delegate kernel, returns `TfLiteKernelInitFailed()` if it
+  /// fails on the initialization. This eventually causes user's API call to
+  /// InterpreterBuilder::operator() or Interpreter::ModifyGraphWithDelegate()
+  /// to return an error.
   void* (*init)(TfLiteContext* context, const char* buffer, size_t length);
 
   /// The pointer `buffer` is the data previously returned by an init
@@ -1346,7 +1352,15 @@ typedef enum TfLiteDelegateFlags {
   /// operator information using `Profiler::EventType::OPERATOR_INVOKE_EVENT`
   /// and the results will appear in the operator-wise Profiling section and not
   /// in the Delegate internal section.
-  kTfLiteDelegateFlagsPerOperatorProfiling = 4
+  kTfLiteDelegateFlagsPerOperatorProfiling = 4,
+
+  // This flag can be used by callers to hint that the delegate is likely to
+  // delegate the entire graph to a single delegate so certain allocations can
+  // be skipped.
+  // This is an ADVANCED feature and should only be used if the caller has
+  // prior knowledge that the delegate will fully delegate all subgraphs
+  // to a single delegate.
+  kTfLiteDelegateFlagsHintFullyDelegatedToSingleDelegate = 8,
 } TfLiteDelegateFlags;
 
 /// WARNING: This is an experimental interface that is subject to change.
@@ -1498,6 +1512,10 @@ TfLiteRunStep TfLiteTensorGetDataKnownStep(const TfLiteTensor* t);
 /// operations.
 TfLiteRunStep TfLiteTensorGetShapeKnownStep(const TfLiteTensor* t);
 
+/// Returns a sentinel value to be used as the user_data field of a TfLiteNode
+/// when the kernel initialization fails.
+void* TfLiteKernelInitFailed();
+
 /** @} */
 // Ends `\addtogroup`, it's important for the doc generator that this doesn't
 // include the CC code below.
@@ -1632,6 +1650,9 @@ TfLiteStatus TfLiteTensorVariantRealloc(TfLiteTensor* t,
   t->allocation_type = kTfLiteVariantObject;
   return kTfLiteOk;
 }
+
+// Returns a copy of the quantization parameters of the tensor.
+TfLiteQuantization TfLiteQuantizationClone(const TfLiteQuantization& src);
 
 #endif  // __cplusplus
 #endif  // TENSORFLOW_LITE_CORE_C_COMMON_H_
