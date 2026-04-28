@@ -599,9 +599,14 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.binary)
     CORES cm33 cm33f
     )
   mcux_add_library(
+    LIBS lib/cm85/iar/tflm.a
+    TOOLCHAINS iar
+    CORES cm85 cm85f
+    )
+  mcux_add_library(
     LIBS lib/cm85/armgcc/libtflm.a
     TOOLCHAINS armgcc mcux
-    CORES cm85
+    CORES cm85 cm85f
     )
   mcux_add_library(
     LIBS lib/hifi1/xcc/rt798s/libtflm.a
