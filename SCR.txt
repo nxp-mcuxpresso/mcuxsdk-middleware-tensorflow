@@ -1,7 +1,7 @@
 NXP Software Content Register
 
 Package: eiq_tensorflow_tflite-micro
-Version: 2025-07-17 (commit 3200ccd1)
+Version: 2026-02-12 (commit f2b2b3f5)
 Outgoing License: Apache-2.0
 License File: LICENSE
 Type of Content: source code
@@ -27,7 +27,7 @@ Origin:
 NXP Software Content Register
 
 Package: eiq_FlatBuffers
-Version: 23.05.26 (commit 0100f6a5)
+Version: 25.9.23 (commit 1872409)
 Outgoing License: Apache-2.0
 License File: tensorflow-lite/third_party/flatbuffers/LICENSE.txt
 Type of Content: source code
@@ -79,7 +79,7 @@ Origin:
 NXP Software Content Register
 
 Package: eiq_tensorflow_lite_micro_cmsis_nn
-Version: 23.08 (commit e096196a)
+Version: 25.02 (commit e096196a)
 Outgoing License: Apache-2.0
 License File: tensorflow-lite/third_party/cmsis_nn/LICENSE.txt
 Type of Content: source code

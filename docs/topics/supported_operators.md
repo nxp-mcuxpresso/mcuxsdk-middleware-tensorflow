@@ -21,7 +21,7 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 | BROADCAST\_ARGS                | Yes                                               |
 | BROADCAST\_TO                  | Yes                                               |
 | BUCKETIZE                      | No                                                |
-| CALL\_ONCE                     | No                                                |
+| CALL\_ONCE                     | Yes                                               |
 | CAST                           | Yes                                               |
 | CEIL                           | Yes                                               |
 | COMPLEX\_ABS                   | No                                                |
@@ -38,7 +38,7 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 | DEQUANTIZE                     | Yes                                               |
 | DETECTION\_POSTPROCESS         | Yes                                               |
 | DIV                            | Yes                                               |
-| DYNAMIC\_UPDATE\_SLICE         | No                                                |
+| DYNAMIC\_UPDATE\_SLICE         | Yes                                               |
 | ELU                            | Yes                                               |
 | EMBEDDING\_LOOKUP              | Yes                                               |
 | EMBEDDING\_LOOKUP\_SPARSE      | No                                                |
@@ -102,12 +102,12 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 | RANDOM\_UNIFORM                | No                                                |
 | RANGE                          | No                                                |
 | RANK                           | No                                                |
-| READ\_VARIABLE                 | No                                                |
+| READ\_VARIABLE                 | Yes                                               |
 | REAL                           | No                                                |
-| REDUCE\_ALL                    | No                                                |
+| REDUCE\_ALL                    | Yes                                               |
 | REDUCE\_ANY                    | No                                                |
 | REDUCE\_MAX                    | Yes                                               |
-| REDUCE\_MIN                    | No                                                |
+| REDUCE\_MIN                    | Yes                                               |
 | REDUCE\_PROD                   | No                                                |
 | RELU                           | Yes                                               |
 | RELU\_N1\_TO\_1                | No                                                |
@@ -117,7 +117,7 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 | RESIZE\_BILINEAR               | Yes                                               |
 | RESIZE\_NEAREST\_NEIGHBOR      | Yes                                               |
 | REVERSE\_SEQUENCE              | No                                                |
-| REVERSE\_V2                    | No                                                |
+| REVERSE\_V2                    | Yes                                               |
 | RNN                            | No                                                |
 | ROUND                          | Yes                                               |
 | RSQRT                          | Yes                                               |
@@ -148,7 +148,7 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 | TOPK\_V2                       | No                                                |
 | TRANSPOSE                      | Yes                                               |
 | TRANSPOSE\_CONV                | Yes                                               |
-| UNIDIRECTIONAL\_SEQUENCE\_LSTM | Yes \(on Xtensa cores\)                           |
+| UNIDIRECTIONAL\_SEQUENCE\_LSTM | Yes                                               |
 | UNIDIRECTIONAL\_SEQUENCE\_RNN  | No                                                |
 | UNIQUE                         | No                                                |
 | UNPACK                         | Yes                                               |
@@ -157,7 +157,7 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 | UNSORTED\_SEGMENT\_MAX         | No                                                |
 | UNSORTED\_SEGMENT\_PROD        | No                                                |
 | UNSORTED\_SEGMENT\_SUM         | No                                                |
-| VAR\_HANDLE                    | No                                                |
+| VAR\_HANDLE                    | Yes                                               |
 | ZEROS\_LIKE                    | Yes                                               |
 
 [Table 2](#table_ygd_z34_3wb) contains an overview of hardware optimized TensorFlow Lite Micro operators on supported devices. Operators not listed in the table are reference C++ implementations only. Optimized operators for ARM Cortex-M cores leverage the ARM CMSIS-NN library. For details, see the `middleware/eiq/tensorflow-lite/third_party/cmsis/CMSIS/NN/README.md` file. Optimized operators for Cadence Xtensa cores \(HiFi4 and FusionF1\) leverage the Xtensa HiFi4 NN library.
@@ -195,6 +195,6 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 | TANH                           | float <br> uint8 <br> int8 <br> int16 | No <br> No <br> No <br> No     | No <br> Yes <br> Yes <br> No  | No <br> Yes <br> Yes <br> No  | Yes <br> No <br> Yes <br> Yes  |
 | TRANSPOSE                      | float <br> uint8 <br> int8 <br> int16 | Yes <br> No <br> Yes <br> Yes  | No <br> Yes <br> Yes <br> No  | No <br> Yes <br> Yes <br> No  | No <br> No <br> Yes <br> No    |
 | TRANSPOSE\_CONV                | float <br> uint8 <br> int8 <br> int16 | Yes <br> No <br> Yes <br> Yes  | No <br> Yes <br> Yes <br> No  | No <br> Yes <br> Yes <br> Yes | Yes <br> No <br> Yes <br> Yes  |
-| UNIDIRECTIONAL\_SEQUENCE\_LSTM | float <br> uint8 <br> int8 <br> int16 | No <br> No <br> Yes <br> Yes   | No <br> No <br> Yes <br> Ye*  | No <br> No <br> Yes <br> Yes  | No <br> No <br> No <br> Yes    |
+| UNIDIRECTIONAL\_SEQUENCE\_LSTM | float <br> uint8 <br> int8 <br> int16 | No <br> No <br> Yes <br> Yes   | No <br> No <br> Yes <br> Yes  | No <br> No <br> Yes <br> Yes  | No <br> No <br> No <br> Yes    |
 |                                |                                       |                                |                               |                               |                                |
 
