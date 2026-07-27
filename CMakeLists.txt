@@ -294,6 +294,14 @@ if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.source)
     CX "-std=gnu++17"
     )
   mcux_add_iar_configuration(CC "--dlib_config full")
+
+  if(${CONFIG_MCUX_HW_CORE} STREQUAL "cm55" OR ${CONFIG_MCUX_HW_CORE} STREQUAL "cm55f")
+    mcux_add_iar_configuration(
+      CC "-DARM_MATH_MVEI -DARM_MATH_AUTOVECTORIZE"
+      CX "-DARM_MATH_MVEI -DARM_MATH_AUTOVECTORIZE"
+    )
+  endif()
+
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.eiq.tensorflow_lite_micro.refenerce)
