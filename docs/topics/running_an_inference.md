@@ -2,7 +2,8 @@
 
 After converting the model to the TensorFlow Lite format, it is converted into a C language array to include it in the application source code. The *xxd* utility can be used for this purpose \(distributed with the *Vim* editor for many platforms on [https://www.vim.org/](https://www.vim.org/)\) as shown in [Converting a model to a C language header file](running_an_inference.md#EXAMPLE_4). The utility converts a TensorFlow Lite model into a C header file with an array definition containing the binary image of the model and a variable containing the data size.
 
-## Converting a model to a C language header file {#EXAMPLE_4 .section}
+(EXAMPLE_4)=
+## Converting a model to a C language header file
 
 ```
 xxd -i mobilenet_v1_0.25_128_quant.tflite > mobilenet_v1_0.25_128_quant_model.h
@@ -71,7 +72,7 @@ Running an inference using TensorFlow Lite for Microcontrollers involves several
     ```
 
 
-## NPU inference {#npu_infer .section}
+## NPU inference
 
 Running an inference using a model converted for the NPU requires registration of a custom operator implementation. First the header file with the custom operator implementation interface must be included.
 
@@ -91,7 +92,7 @@ microOpResolver.AddCustom(tflite::GetString_NEUTRON_GRAPH(),
 
 The specialized NPU nodes from the converted model are the executed using this newly registered implementation.
 
-## Adjusting the tensor arena size {#adjust_arena .section}
+## Adjusting the tensor arena size
 
 The tensor arena is a static memory buffer used for intermediate tensor and scratch buffer allocation. The size of the tensor arena buffer is set by the `kTensorArenaSize` constant in the example above. The value depends on the tensor sizes used in the model and on the hardware-specific implementations of kernels, which may require various sizes of scratch buffers for intermediate computations. The value can be determined experimentally by running an inference with a small value, so the library fails with an insufficient tensor memory error and prints the missing amount. Continue adjusting the size until the error stops being reported. If the target hardware changes, readjust the value.
 

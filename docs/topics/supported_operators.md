@@ -162,6 +162,7 @@ The TensorFlow Lite library since version 2.3 provides an alternative implementa
 
 [Table 2](#table_ygd_z34_3wb) contains an overview of hardware optimized TensorFlow Lite Micro operators on supported devices. Operators not listed in the table are reference C++ implementations only. Optimized operators for ARM Cortex-M cores leverage the ARM CMSIS-NN library. For details, see the `middleware/eiq/tensorflow-lite/third_party/cmsis/CMSIS/NN/README.md` file. Optimized operators for Cadence Xtensa cores \(HiFi4 and FusionF1\) leverage the Xtensa HiFi4 NN library.
 
+(table_ygd_z34_3wb)=
 ## Supported Operator List by eIQ Neutron NPU Library and HiFi 4 NN Library
 | Operator                       | Operator input type                   | CMSIS-NN for Cortex-M33 and Cortex-M7                                                          | MCXN947 \(eIQ Neutron NPU\) <br> MCXN547 \(eIQ Neutron NPU\) <br>                                | i.MX RT700 \(eIQ Neutron NPU\) | i.MX RT600 <br> i.MX RT700 <br> \(HiFi4 NN\)   |
 | :----------------------------- | :------------------------------------ | :--------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------- | :----------------------------- | :----------------------------- |

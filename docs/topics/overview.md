@@ -1,5 +1,5 @@
 <!--ts-->
-   * [Overview](#Overview)
+   * [Overview](#overview)
    * [TensorFlow Lite for Microcontrollers](#tensorflow-lite-for-microcontrollers)
    * [Build Status](#build-status)
       * [Official Builds](#official-builds)
@@ -17,7 +17,7 @@
 
 TensorFlow Lite is an open source software library for running machine learning models on mobile and embedded devices. For more information, see [www.tensorflow.org/lite](http://www.tensorflow.org/lite).
 
-For memory constrained devices, the library contains TensorFlow Lite for Microcontrollers. For more information, see [www.tensorflow.org/lite/microcontrollers](WWW.TENSORFLOW.ORG/LITE/MICROCONTROLLERS).
+For memory constrained devices, the library contains TensorFlow Lite for Microcontrollers. For more information, see [www.tensorflow.org/lite/microcontrollers](https://www.tensorflow.org/lite/microcontrollers).
 
 The MCUXpresso Software Development Kit \(MCUXpresso SDK\) provides a comprehensive software package with a pre-integrated TensorFlow Lite for Microcontrollers based on version 25-04-08 \(from the 8th of April 2025 with [commit](https://github.com/tensorflow/tflite-micro/commit/bc68d362d6f3ac93ce11d8712974d05b1d6a8305) \). This document describes the steps required to download and start using the library. Additionally, the document describes the steps required to create an application for running pre-trained models.
 
@@ -47,7 +47,7 @@ Code Sync        | [![Sync from Upstream TF](https://github.com/tensorflow/tflit
 
 ## Community Supported TFLM Examples
 This table captures platforms that TFLM has been ported to. Please see
-[New Platform Support](tensorflow/lite/micro/docs/new_platform_support.md) for
+[New Platform Support](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/new_platform_support.md) for
 additional documentation.
 
 Platform      |    Status     |
@@ -70,7 +70,7 @@ Generate Integration Test          | [![Generate Integration Test](https://githu
 
 
 # Contributing
-See our [contribution documentation](CONTRIBUTING.md).
+See our [contribution documentation](https://github.com/tensorflow/tflite-micro/blob/main/CONTRIBUTING.md).
 
 # Getting Help
 
@@ -94,23 +94,23 @@ The following resources may also be useful:
 
 # Additional Documentation
 
- * [Continuous Integration](docs/continuous_integration.md)
- * [Benchmarks](tensorflow/lite/micro/benchmarks/README.md)
- * [Profiling](tensorflow/lite/micro/docs/profiling.md)
- * [Memory Management](tensorflow/lite/micro/docs/memory_management.md)
- * [Logging](tensorflow/lite/micro/docs/logging.md)
- * [Porting Reference Kernels from TfLite to TFLM](tensorflow/lite/micro/docs/porting_reference_ops.md)
- * [Optimized Kernel Implementations](tensorflow/lite/micro/docs/optimized_kernel_implementations.md)
- * [New Platform Support](tensorflow/lite/micro/docs/new_platform_support.md)
+ * [Continuous Integration](https://github.com/tensorflow/tflite-micro/blob/main/docs/continuous_integration.md)
+ * [Benchmarks](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/benchmarks/README.md)
+ * [Profiling](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/profiling.md)
+ * [Memory Management](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/memory_management.md)
+ * [Logging](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/logging.md)
+ * [Porting Reference Kernels from TfLite to TFLM](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/porting_reference_ops.md)
+ * [Optimized Kernel Implementations](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/optimized_kernel_implementations.md)
+ * [New Platform Support](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/new_platform_support.md)
  * Platform/IP support
-   * [Arm IP support](tensorflow/lite/micro/docs/arm.md)
- * [Software Emulation with Renode](tensorflow/lite/micro/docs/renode.md)
- * [Software Emulation with QEMU](tensorflow/lite/micro/docs/qemu.md)
- * [Python Dev Guide](docs/python.md)
- * [Automatically Generated Files](docs/automatically_generated_files.md)
- * [Python Interpreter Guide](python/tflite_micro/README.md)
+   * [Arm IP support](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/arm.md)
+ * [Software Emulation with Renode](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/renode.md)
+ * [Software Emulation with QEMU](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/qemu.md)
+ * [Python Dev Guide](https://github.com/tensorflow/tflite-micro/blob/main/docs/python.md)
+ * [Automatically Generated Files](https://github.com/tensorflow/tflite-micro/blob/main/docs/automatically_generated_files.md)
+ * [Python Interpreter Guide](https://github.com/tensorflow/tflite-micro/blob/main/python/tflite_micro/README.md)
 
 # RFCs
 
-1. [Pre-allocated tensors](tensorflow/lite/micro/docs/rfc/001_preallocated_tensors.md)
-1. [TensorFlow Lite for Microcontrollers Port of 16x8 Quantized Operators](tensorflow/lite/micro/docs/rfc/002_16x8_quantization_port.md)
+1. [Pre-allocated tensors](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/rfc/001_preallocated_tensors.md)
+1. [TensorFlow Lite for Microcontrollers Port of 16x8 Quantized Operators](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/docs/rfc/002_16x8_quantization_port.md)

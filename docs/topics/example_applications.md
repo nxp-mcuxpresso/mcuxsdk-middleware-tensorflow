@@ -2,6 +2,7 @@
 
 The eIQ TensorFlow Lite library is provided with a set of example applications. For details, see [Table 1](example_applications.md#TABLE_LISTOFEXAMPLEAPP). The applications demonstrate the usage of the library in several use cases.
 
+(TABLE_LISTOFEXAMPLEAPP)=
 |Name|Description|Availability|
 |----|-----------|------------|
 |`tflm_cifar10`|CIFAR-10 classification of 32 × 32 RGB pixel images into 10 categories using a small Convolutional Neural Network \(CNN\).|MCX-N947-EVK \(no camera and display support\) <br> MCX-N947-FRDM \(no camera and display support\) <br> MCX-N547-EVK \(no camera and display support\) <br> MIMXRT700-EVK \(no camera and display support\) |
@@ -13,12 +14,14 @@ The eIQ TensorFlow Lite library is provided with a set of example applications. 
 
 For details on how to build and run the example applications with supported toolchains, see *Getting Started with MCUXpresso SDK User’s Guide* \(document: MCUXSDKGSUG\). When using MCUXpresso IDE, the example applications can be imported through the SDK Import Wizard as shown in [Figure 1](example_applications.md#FIG_IDEIMPORTWIZARD).
 
+(FIG_IDEIMPORTWIZARD)=
 |![](../images/fig3.png "MCUXpresso SDK import projects wizard") ![](../images/RT700_EIQ_Examples.png "MCUXpresso SDK import projects wizard")
 
 |
 
 After building the example application and downloading it to the target, the execution stops in the *main* function. When the execution resumes, an output message displays on the connected terminal. For example, [Figure 2](example_applications.md#FIG_IDECONSOLEWINDOW) shows the output of the `tflm_label_image_cm7``tflm_label_image` example application printed to the MCUXpresso IDE Console window when semihosting debug console is selected in the SDK Import Wizard.
 
+(FIG_IDECONSOLEWINDOW)=
 |![](../images/fig4.png "Console
 									window") ![](../images/RT700_EIQ_TFLM.png "Console
 									window")
