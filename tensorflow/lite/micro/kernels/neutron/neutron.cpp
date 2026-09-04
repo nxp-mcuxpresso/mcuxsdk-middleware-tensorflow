@@ -33,6 +33,20 @@ extern "C" void *memalign(size_t alignment, size_t size) {
 #endif
 
 namespace tflite {
+
+#ifdef EXTERNAL_MEM
+#ifndef SCRATCH_WEIGHTS_SRAM_SIZE
+#define SCRATCH_WEIGHTS_SRAM_SIZE  1200*1024
+#endif
+
+// Scratch buffer for weights on external-memory targets.
+uint8_t scratchWeightsBuffer[SCRATCH_WEIGHTS_SRAM_SIZE] __attribute__((aligned(16))) __attribute__((section("NonCacheable")));
+
+// Data-mover hooks for external-memory targets.
+void copy(void *dst, void *src, uint32_t size, uint32_t channel);
+void wait(uint32_t channel);
+#endif
+
 namespace {
 
 typedef struct {
@@ -44,24 +58,7 @@ typedef struct {
 } NeutronTfLiteConfig;
 
 #ifdef EXTERNAL_MEM
-#ifndef SCRATCH_WEIGHTS_SRAM_SIZE
-#define SCRATCH_WEIGHTS_SRAM_SIZE  1200*1024
-#endif
-
-static uint8_t scratchWeightsBuffer[SCRATCH_WEIGHTS_SRAM_SIZE] __attribute__((aligned(16))) __attribute__((section("NonCacheable")));
 static NeutronConfig *n_config = nullptr;
-
-void copy(void *dst, void *src, uint32_t size, uint32_t channel) {
-if (((uintptr_t)dst + size - (uintptr_t)scratchWeightsBuffer) > SCRATCH_WEIGHTS_SRAM_SIZE){
-      MicroPrintf("scratchWeightsBuffer Overflow, Requested: %x SCRATCH_WEIGHTS_SRAM_SIZE: %x\r\n",
-		      ((uintptr_t)dst + size - (uintptr_t)scratchWeightsBuffer), SCRATCH_WEIGHTS_SRAM_SIZE);
-      while(1);
-      return;
-  }
-  memcpy(dst, src, size);
-}
-void wait(uint32_t channel) {
-}
 #endif
 
 static int driver_ref_count = 0;
@@ -214,6 +211,27 @@ void Free(TfLiteContext* context, void* buffer) {
 }
 
 }  // namespace
+
+#ifdef EXTERNAL_MEM
+// Default (weak) implementations of the data-mover hooks. A board application
+// can override either of these by defining a strong tflite::copy / tflite::wait;
+// the linker then selects the strong definition over these weak ones. If no
+// strong definition is provided, these weak defaults are used.
+__attribute__((weak))
+void copy(void *dst, void *src, uint32_t size, uint32_t channel) {
+if (((uintptr_t)dst + size - (uintptr_t)scratchWeightsBuffer) > SCRATCH_WEIGHTS_SRAM_SIZE){
+      MicroPrintf("scratchWeightsBuffer Overflow, Requested: %x SCRATCH_WEIGHTS_SRAM_SIZE: %x\r\n",
+		      ((uintptr_t)dst + size - (uintptr_t)scratchWeightsBuffer), SCRATCH_WEIGHTS_SRAM_SIZE);
+      while(1);
+      return;
+  }
+  memcpy(dst, src, size);
+}
+
+__attribute__((weak))
+void wait(uint32_t channel) {
+}
+#endif
 
 TFLMRegistration* Register_NEUTRON_GRAPH() {
   static TFLMRegistration r =
