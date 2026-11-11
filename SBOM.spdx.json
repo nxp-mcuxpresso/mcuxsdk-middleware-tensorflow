@@ -2,24 +2,37 @@
   "SPDXID": "SPDXRef-DOCUMENT",
   "spdxVersion": "SPDX-2.3",
   "creationInfo": {
-    "created": "2025-06-19T03:46:17Z",
+    "created": "2026-11-10T02:30:41Z",
     "creators": [
       "Organization: NXP"
     ],
-    "licenseListVersion": "3.20"
+    "licenseListVersion": "3.28"
   },
-  "name": "mcux-sdk-middleware-tensorflow-v25.06.00",
+  "name": "mcux-sdk-middleware-tensorflow-v26.12.00",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://nxp.com/spdx/ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
+  "documentNamespace": "https://nxp.com/spdx/1e6cca4f-d93c-4761-b0d5-caf7349f9446",
   "packages": [
     {
-      "SPDXID": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
+      "SPDXID": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
       "name": "mcux-sdk-middleware-tensorflow",
-      "versionInfo": "v25.06.00",
+      "versionInfo": "v26.12.00",
       "licenseConcluded": "(Apache-2.0)",
       "licenseDeclared": "(Apache-2.0)",
       "downloadLocation": "https://github.com/nxp-mcuxpresso/mcux-sdk-middleware-tensorflow",
       "originator": "Organization: NXP",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-3f96694c-c4bb-4344-a0a6-98923223c58e",
+      "name": "Apache License 2.0",
+      "versionInfo": "2.0",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "homepage": "http://www.apache.org",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: Apache License 2.0",
       "supplier": "NOASSERTION",
       "externalRefs": [],
       "filesAnalyzed": false
@@ -30,20 +43,19 @@
       "versionInfo": "v7.0.0",
       "licenseConcluded": "Apache-2.0",
       "licenseDeclared": "Apache-2.0",
-      "homepage": "https://github.com/ARM-software/CMSIS-NN",
       "downloadLocation": "NOASSERTION",
       "originator": "Organization: arm-software",
       "supplier": "NOASSERTION",
       "externalRefs": [
         {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceLocator": "pkg:github/arm-software/cmsis-nn@v7.0.0",
-          "referenceType": "purl"
-        },
-        {
           "referenceCategory": "OTHER",
           "referenceLocator": "b929c39b-a471-46da-8faa-a439739a5e08",
           "referenceType": "BlackDuck-ComponentOrigin"
+        },
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:github/arm-software/cmsis-nn@v7.0.0",
+          "referenceType": "purl"
         }
       ],
       "filesAnalyzed": false
@@ -62,9 +74,9 @@
       "filesAnalyzed": false
     },
     {
-      "SPDXID": "SPDXRef-package-6e389a13-a9b7-40d3-94eb-d51080af55b8",
+      "SPDXID": "SPDXRef-package-10f5ab36-ffd4-49fe-b59a-a10d0f0c5a7b",
       "name": "FlatBuffers",
-      "versionInfo": "2.0.6",
+      "versionInfo": "23.5.26",
       "licenseConcluded": "Apache-2.0",
       "licenseDeclared": "Apache-2.0",
       "homepage": "http://google.github.io/flatbuffers/",
@@ -74,7 +86,12 @@
       "externalRefs": [
         {
           "referenceCategory": "SECURITY",
-          "referenceLocator": "cpe:2.3:a:google:flatbuffers:2.0.6:*:*:*:*:*:*:*",
+          "referenceLocator": "cpe:2.3:a:crates_package:flatbuffers:23.5.26:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        },
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:google:flatbuffers:23.5.26:*:*:*:*:*:*:*",
           "referenceType": "cpe23Type"
         }
       ],
@@ -113,27 +130,40 @@
       "licenseConcluded": "BSD-3-Clause",
       "licenseDeclared": "BSD-3-Clause",
       "homepage": "http://sourceforge.net/projects/kissfft",
-      "downloadLocation": "https://bodhi.fedoraproject.org/updates/kiss-fft-1.3.0-8.fc30",
-      "originator": "Organization: fedora",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: Kiss FFT",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-1ccf93b3-924f-4140-a364-f60b089687b9",
+      "name": "libflatbuffers-dev",
+      "versionInfo": "25.12.19",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "homepage": "http://google.github.io/flatbuffers/",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: debian",
       "supplier": "NOASSERTION",
       "externalRefs": [
         {
           "referenceCategory": "OTHER",
-          "referenceLocator": "fcaad5d7-fc94-419e-9a12-b84b4480bf8b",
+          "referenceLocator": "fdc6f42f-17bb-4b20-aafe-0d9ca380c76e",
           "referenceType": "BlackDuck-ComponentOrigin"
         },
         {
           "referenceCategory": "PACKAGE-MANAGER",
-          "referenceLocator": "pkg:rpm/fedora/kiss-fft@1.3.0-8.fc30?arch=x86_64",
+          "referenceLocator": "pkg:deb/debian/libflatbuffers-dev@25.12.19%2Bdfsg-1~exp1?arch=riscv64",
           "referenceType": "purl"
         }
       ],
       "filesAnalyzed": false
     },
     {
-      "SPDXID": "SPDXRef-package-de6edc43-6107-41a2-bfd1-56b007ae3ac0",
+      "SPDXID": "SPDXRef-package-6a980f8e-57bc-4750-9161-b785e2d69176",
       "name": "TensorFlow",
-      "versionInfo": "0.0.1-nightly.20250408",
+      "versionInfo": "0.0.1-nightly.20250516",
       "licenseConcluded": "Apache-2.0",
       "licenseDeclared": "Apache-2.0",
       "homepage": "http://tensorflow.org",
@@ -161,52 +191,57 @@
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
       "relationshipType": "DESCRIBES",
-      "relatedSpdxElement": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe"
+      "relatedSpdxElement": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446"
     },
     {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
-      "relationshipType": "DYNAMIC_LINK",
-      "relatedSpdxElement": "SPDXRef-package-6e389a13-a9b7-40d3-94eb-d51080af55b8"
-    },
-    {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
       "relationshipType": "CONTAINS",
-      "relatedSpdxElement": "SPDXRef-package-de6edc43-6107-41a2-bfd1-56b007ae3ac0"
+      "relatedSpdxElement": "SPDXRef-package-10f5ab36-ffd4-49fe-b59a-a10d0f0c5a7b"
     },
     {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
+      "relationshipType": "DYNAMIC_LINK",
+      "relatedSpdxElement": "SPDXRef-package-1ccf93b3-924f-4140-a364-f60b089687b9"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-3f96694c-c4bb-4344-a0a6-98923223c58e"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-49c19046-b569-4c7d-a432-1385ffc1aa27"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-6a980f8e-57bc-4750-9161-b785e2d69176"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
       "relationshipType": "CONTAINS",
       "relatedSpdxElement": "SPDXRef-package-8cb8b9a5-d25a-4e2f-a5a1-06e8937175b1"
     },
     {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
       "relationshipType": "CONTAINS",
       "relatedSpdxElement": "SPDXRef-package-9c5112eb-8c6a-48bb-8b85-527f421171a6"
     },
     {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
-      "relationshipType": "DYNAMIC_LINK",
-      "relatedSpdxElement": "SPDXRef-package-f582c9bf-5544-48f5-85da-ccbf20c505ab"
-    },
-    {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
-      "relationshipType": "DYNAMIC_LINK",
-      "relatedSpdxElement": "SPDXRef-package-49c19046-b569-4c7d-a432-1385ffc1aa27"
-    },
-    {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
       "relationshipType": "CONTAINS",
-      "relatedSpdxElement": "SPDXRef-package-49c19046-b569-4c7d-a432-1385ffc1aa27"
-    },
-    {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
-      "relationshipType": "DYNAMIC_LINK",
       "relatedSpdxElement": "SPDXRef-package-d1aa20fc-e6b8-4035-ab85-ef65b8080d02"
     },
     {
-      "spdxElementId": "SPDXRef-package-ed549b3f-1129-4ffe-9371-5fb8cc5104fe",
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
       "relationshipType": "CONTAINS",
       "relatedSpdxElement": "SPDXRef-package-e69ada95-24f8-4566-b58b-039cf5fd58e7"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-1e6cca4f-d93c-4761-b0d5-caf7349f9446",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-f582c9bf-5544-48f5-85da-ccbf20c505ab"
     }
   ]
 }
